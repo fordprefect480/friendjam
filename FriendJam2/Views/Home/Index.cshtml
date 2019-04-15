@@ -1,0 +1,40 @@
+﻿@model FriendJam2.Models.HomeViewModel
+
+@using Microsoft.Owin.Security
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<br/>
+<div class="row">
+    <div class="col-md-6">
+        <div class="jumbotron">            
+            <h2>Your Spotify</h2>
+            @if (!Request.IsAuthenticated)
+            {
+                <p class="lead">Connect to your Spotify account.</p>
+                using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = string.Empty }))
+                {
+                    @Html.AntiForgeryToken()
+                    <p>
+                        <button type="submit" class="btn btn-primary btn-lg" id="spotify" name="provider" value="Spotify" title="Log in using your Spotify account">Connect</button>                    
+                    </p>
+                }
+            }
+            else
+            {
+                <p>
+                    Connected as @Model.SpotifyUsername. Track = @Model.Track
+                </p>
+            }
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="jumbotron">
+            <h2>Your Mate's Spotify</h2>
+            <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+            <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+        </div>
+    </div>
+</div>
